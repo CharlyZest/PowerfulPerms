@@ -69,7 +69,7 @@ public class PowerfulPerms extends Plugin implements Listener, PowerfulPermsPlug
         if (oldVersion <= 0)
             oldVersion = currentVersion;
 
-        PermissionManagerBase.redisEnabled = config.getBoolean("redis", true);
+        PermissionManagerBase.redisEnabled = config.getBoolean("redis", false);
         PermissionManagerBase.redis_ip = config.getString("redis_ip");
         PermissionManagerBase.redis_port = config.getInt("redis_port");
         PermissionManagerBase.redis_password = config.getString("redis_password");
@@ -80,7 +80,7 @@ public class PowerfulPerms extends Plugin implements Listener, PowerfulPermsPlug
             serverMode = ServerMode.OFFLINE;
         else if (config.getString("onlinemode", "default").equalsIgnoreCase("mixed"))
             serverMode = ServerMode.MIXED;
-        getLogger().info("PowerfulPerms is now running on server mode " + serverMode);
+        getLogger().info("PowerfulPerms se ejecuta en modo " + serverMode);
 
         loadConfig();
 
@@ -103,7 +103,10 @@ public class PowerfulPerms extends Plugin implements Listener, PowerfulPermsPlug
     @Override
     public void onDisable() {
         if (permissionManager != null)
+        {
             permissionManager.onDisable();
+            getLogger().info("Hasta la vista putos.");
+        }
     }
 
     @EventHandler
@@ -194,7 +197,7 @@ public class PowerfulPerms extends Plugin implements Listener, PowerfulPermsPlug
                 is.close();
                 os.close();
             } catch (IOException e) {
-                throw new RuntimeException("Unable to create configuration file", e);
+                throw new RuntimeException("No se puede crear el archivo de configuración", e);
             }
         }
     }
